@@ -1,6 +1,6 @@
-# SAYAN Website
+# INALTA Website
 
-Este es el sitio web oficial de SAYAN, diseñado con una arquitectura escalable que permite administrar múltiples sitios para diferentes países conservando una estructura común.
+Este es el sitio web oficial de INALTA, diseñado con una arquitectura escalable que permite administrar múltiples sitios para diferentes países conservando una estructura común.
 
 ## Estructura del Proyecto
 
