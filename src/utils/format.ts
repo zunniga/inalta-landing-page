@@ -209,7 +209,7 @@ export function formatCertificateCode(code: string): string {
   if (!code) return "N/A";
   
   // Si el código empieza con "C", quitarlo
-  if (code.startsWith('S') || code.startsWith('s')) {
+  if (code.startsWith('I') || code.startsWith('i')) {
     return code.substring(1);
   }
   
@@ -225,8 +225,8 @@ export function addCodePrefix(code: string): string {
   if (!code) return code;
 
   // Si el código NO empieza con "S", agregarlo para la API
-  if (!code.startsWith('S') && !code.startsWith('s')) {
-    return `S${code}`;
+  if (!code.startsWith('I') && !code.startsWith('i')) {
+    return `I${code}`;
   }
   
   return code;

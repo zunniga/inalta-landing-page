@@ -1,20 +1,15 @@
-"use client";
-import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { QrCode, Globe, Eye, Info } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import NextLink from "next/link";
+"use client"
+import { motion, useInView } from "framer-motion"
+import { useRef, useState } from "react"
+import { QrCode, Globe, Eye, Info } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import NextLink from "next/link"
 
 export const FirstSection = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   // Animación principal que se ejecuta cuando está en vista
   const waveVariants = {
@@ -31,17 +26,13 @@ export const FirstSection = () => {
         damping: 15,
       },
     }),
-  };
+  }
 
   return (
-    <section
-      id="nosotros"
-      className="relative overflow-hidden bg-transparent"
-      ref={ref}
-    >
+    <section className="relative overflow-hidden bg-transparent" ref={ref}>
       {/* Background decorative elements */}
       <motion.div
-        className="absolute top-20 left-10 w-32 h-32 bg-[#b6d900]/10 rounded-full blur-xl"
+        className="absolute top-20 left-10 w-32 h-32 bg-[#A1D302]/10 rounded-full blur-xl"
         animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
         transition={{
           duration: 4,
@@ -50,7 +41,7 @@ export const FirstSection = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-40 h-40 bg-[#12a9be]/20 rounded-full blur-xl"
+        className="absolute bottom-20 right-10 w-40 h-40 bg-[#00A9BB]/20 rounded-full blur-xl"
         animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.3, 0.2] }}
         transition={{
           duration: 5,
@@ -70,9 +61,12 @@ export const FirstSection = () => {
             variants={waveVariants}
             className="inline-flex items-center justify-center mb-6"
           >
-            <span className="px-6 py-3 text-white rounded-full font-bold text-sm tracking-[0.2em] uppercase bg-gradient-to-r from-[#0d617b] to-[#12a9be] shadow-lg">
-              NUESTRO CERTIFICADO
-            </span>
+            <div className="flex items-center mb-0 ">
+              <span className="text-[#006174] dark:text-[#A1D302] font-semibold text-md tracking-wider uppercase transition-colors duration-300">
+                NOSOTROS
+              </span>
+              <div className="ml-3 w-12 h-0.5 bg-[#006174] dark:bg-[#A1D302] transition-colors duration-300"></div>
+            </div>
           </motion.div>
 
           <motion.h2
@@ -82,9 +76,9 @@ export const FirstSection = () => {
             variants={waveVariants}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white  mb-4"
           >
-            Lo que hace{" "}
-            <span className="bg-gradient-to-r from-[#12a9be] to-[#0d617b] bg-clip-text text-transparent">
-              único
+            Descubre qué hace{" "}
+            <span className="bg-gradient-to-r from-[#00A9BB] to-[#006174] bg-clip-text text-transparent">
+              diferentes
             </span>{" "}
             nuestros certificados
           </motion.h2>
@@ -100,10 +94,10 @@ export const FirstSection = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={waveVariants}
-              className="bg-white/90 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-slate-700/50 hover:border-[#12a9be]/50 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group"
+              className="bg-white/90 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-slate-700/50 hover:border-[#00A9BB]/50 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#12a9be] to-[#0d617b] rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#00A9BB] to-[#006174] rounded-2xl flex items-center justify-center flex-shrink-0">
                   <QrCode className="w-8 h-8 text-white" />
                 </div>
                 <div className="flex-1">
@@ -111,12 +105,8 @@ export const FirstSection = () => {
                     Certificado con código QR único
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Todos nuestros certificados incluyen un código QR único, lo
-                    que permite su verificación instantánea en{" "}
-                    <span className="text-[#12a9be] font-semibold">
-                      VeryCerts
-                    </span>{" "}
-                    garantizando autenticidad.
+                    Todos nuestros certificados incluyen un código QR único, lo que permite su verificación instantánea
+                    en <span className="text-[#00A9BB] font-semibold">VeryCerts</span> garantizando autenticidad.
                   </p>
                 </div>
               </div>
@@ -128,10 +118,10 @@ export const FirstSection = () => {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               variants={waveVariants}
-              className="bg-white/90 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-slate-700/50 hover:border-[#12a9be]/50 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group"
+              className="bg-white/90 dark:bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 dark:border-slate-700/50 hover:border-[#00A9BB]/50 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group"
             >
               <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#12a9be] to-[#0d617b] rounded-2xl flex items-center justify-center flex-shrink-0">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#00A9BB] to-[#006174] rounded-2xl flex items-center justify-center flex-shrink-0">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
                 <div className="flex-1">
@@ -139,9 +129,8 @@ export const FirstSection = () => {
                     Registro digital internacional
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                    Tus certificados quedan registrados en una plataforma
-                    moderna y segura, lo que aumenta visibilidad profesional en
-                    el entorno laboral actual.
+                    Tus certificados quedan registrados en una plataforma moderna y segura, lo que aumenta visibilidad
+                    profesional en el entorno laboral actual.
                   </p>
                 </div>
               </div>
@@ -174,7 +163,7 @@ export const FirstSection = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   onClick={() => setIsDialogOpen(true)}
-                  className="flex-1 bg-[#12a9be] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="flex-1 bg-[#006174] hover:bg-[#00A9BB] dark:bg-[#A1D302] dark:hover:bg-[#00A9BB] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transition-colors duration-300"
                 >
                   <Eye className="w-5 h-5 mr-2" />
                   Ver modelo de certificado
@@ -182,7 +171,7 @@ export const FirstSection = () => {
 
                 <Button
                   asChild
-                  className="flex-1 bg-[#12a9be] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="flex-1 bg-[#006174] hover:bg-[#00A9BB] dark:bg-[#A1D302] dark:hover:bg-[#00A9BB] text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transition-colors duration-300"
                 >
                   <NextLink href="/nosotros">
                     <Info className="w-5 h-5 mr-2" />
@@ -199,22 +188,19 @@ export const FirstSection = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-4xl w-full max-h-[90vh] overflow-auto bg-slate-900 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-white mb-4">
-              Modelo de Certificado SAYAN
-            </DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-white mb-4">Modelo de Certificado INALTA</DialogTitle>
           </DialogHeader>
           <div className="relative">
             <img
-             src="/es/graduate/certificate-model.png"
-              alt="Modelo completo del Certificado SAYAN"
+              src="/es/graduate/certificate-model.png"
+              alt="Modelo completo del Certificado INALTA"
               className="w-full h-auto rounded-lg shadow-2xl"
             />
-           
           </div>
         </DialogContent>
       </Dialog>
     </section>
-  );
-};
+  )
+}
 
-export default FirstSection;
+export default FirstSection

@@ -101,8 +101,7 @@ export function FeaturedCourses({
           >
             <Link
               href={`/${countryCode}/cursos`}
-              className="group inline-flex items-center  bg-gradient-to-r from-[#0d617b] to-[#12a9be] 
-        dark:from-[#12a9be] dark:to-[#0d617b] 
+              className="group inline-flex items-center  bg-gradient-to-r from-[#006174] to-[#00A9BB] hover:from-[#006174]/90 hover:to-[#00A9BB]/90 dark:from-[#739700]/70 dark:to-[#8eb902] 
         text-white font-bold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               <Book className="w-5 h-5 mr-3" />

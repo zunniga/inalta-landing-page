@@ -124,7 +124,7 @@ export default function ContactPage({ countryCode }: ContactPageProps) {
             <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                  SAYAN {country.name}
+                  INALTA {country.name}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   Centro de Investigación y Mejoramiento Académico para el

@@ -13,51 +13,63 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
       icon: <Star className="h-7 w-7" />,
       title: "Excelencia",
       description: "Mantenemos los más altos estándares de calidad en cada uno de nuestros programas formativos.",
-      color: "from-[#b6d900] to-[#12a9be]",
-      bgColor: "bg-[#b6d900]/10 dark:bg-[#b6d900]/20",
-      iconColor: "text-[#0d617b] dark:text-[#b6d900]",
+      darkDescription:
+        "Preservamos criterios superiores de excelencia en todos nuestros servicios educativos especializados.",
+      color: "from-[#A1D302] to-[#00A9BB]",
+      bgColor: "bg-[#A1D302]/10 dark:bg-[#A1D302]/20",
+      iconColor: "text-[#006174] dark:text-[#A1D302]",
     },
     {
       icon: <Lightbulb className="h-7 w-7" />,
       title: "Innovación",
       description:
         "Integramos continuamente metodologías vanguardistas y herramientas tecnológicas para optimizar el aprendizaje.",
-      color: "from-[#12a9be] to-[#b6d900]",
-      bgColor: "bg-[#12a9be]/10 dark:bg-[#12a9be]/20",
-      iconColor: "text-[#0d617b] dark:text-[#12a9be]",
+      darkDescription:
+        "Incorporamos permanentemente enfoques pioneros y recursos digitales avanzados para potenciar la experiencia educativa.",
+      color: "from-[#00A9BB] to-[#A1D302]",
+      bgColor: "bg-[#00A9BB]/10 dark:bg-[#00A9BB]/20",
+      iconColor: "text-[#006174] dark:text-[#00A9BB]",
     },
     {
       icon: <Users className="h-7 w-7" />,
       title: "Compromiso",
       description:
         "Nos enfocamos en el desarrollo profesional y personal de cada miembro de nuestra comunidad educativa.",
-      color: "from-[#0d617b] to-[#12a9be]",
-      bgColor: "bg-[#0d617b]/10 dark:bg-[#0d617b]/20",
-      iconColor: "text-[#0d617b] dark:text-[#12a9be]",
+      darkDescription:
+        "Priorizamos el crecimiento integral y la evolución profesional de todos los integrantes de nuestro ecosistema formativo.",
+      color: "from-[#006174] to-[#00A9BB]",
+      bgColor: "bg-[#006174]/10 dark:bg-[#006174]/20",
+      iconColor: "text-[#006174] dark:text-[#00A9BB]",
     },
     {
       icon: <Award className="h-7 w-7" />,
       title: "Integridad",
       description: "Operamos con transparencia, ética y responsabilidad en cada una de nuestras actividades.",
-      color: "from-[#12a9be] to-[#0d617b]",
-      bgColor: "bg-[#12a9be]/10 dark:bg-[#12a9be]/20",
-      iconColor: "text-[#0d617b] dark:text-[#12a9be]",
+      darkDescription:
+        "Actuamos con honestidad, principios morales sólidos y accountability en todas nuestras operaciones.",
+      color: "from-[#00A9BB] to-[#006174]",
+      bgColor: "bg-[#00A9BB]/10 dark:bg-[#00A9BB]/20",
+      iconColor: "text-[#006174] dark:text-[#00A9BB]",
     },
     {
       icon: <Globe className="h-7 w-7" />,
       title: "Inclusión",
       description: "Fomentamos un entorno diverso e inclusivo donde cada persona puede alcanzar su máximo potencial.",
-      color: "from-[#b6d900] to-[#0d617b]",
-      bgColor: "bg-[#b6d900]/10 dark:bg-[#b6d900]/20",
-      iconColor: "text-[#0d617b] dark:text-[#b6d900]",
+      darkDescription:
+        "Cultivamos un ambiente plural y equitativo donde todos los individuos pueden desarrollar plenamente sus capacidades.",
+      color: "from-[#A1D302] to-[#006174]",
+      bgColor: "bg-[#A1D302]/10 dark:bg-[#A1D302]/20",
+      iconColor: "text-[#006174] dark:text-[#A1D302]",
     },
     {
       icon: <Heart className="h-7 w-7" />,
       title: "Impacto Social",
       description: "Contribuimos al progreso de la sociedad mediante la educación y el desarrollo de talento humano.",
-      color: "from-[#0d617b] to-[#b6d900]",
-      bgColor: "bg-[#0d617b]/10 dark:bg-[#0d617b]/20",
-      iconColor: "text-[#0d617b] dark:text-[#12a9be]",
+      darkDescription:
+        "Aportamos al avance comunitario a través de la formación educativa y la potenciación del capital humano.",
+      color: "from-[#006174] to-[#A1D302]",
+      bgColor: "bg-[#006174]/10 dark:bg-[#006174]/20",
+      iconColor: "text-[#006174] dark:text-[#00A9BB]",
     },
   ]
 
@@ -123,13 +135,14 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
               variants={itemVariants}
               whileHover={{ scale: 1.05, rotate: [0, -1, 1, 0] }}
             >
-              <div className="bg-gradient-to-r from-[#0d617b] to-[#12a9be] text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
-                NUESTRA ESENCIA
+              <div className="bg-gradient-to-r from-[#006174] to-[#00A9BB] text-white px-6 py-2 rounded-full text-sm font-semibold tracking-wide">
+                <span className="dark:hidden">NUESTRA ESENCIA</span>
+                <span className="hidden dark:inline">NUESTROS FUNDAMENTOS</span>
               </div>
             </motion.div>
 
             <motion.h2
-              className="text-5xl md:text-7xl font-black bg-gradient-to-r from-gray-900 via-[#0d617b] to-[#12a9be] dark:from-white dark:via-[#12a9be] dark:to-[#b6d900] bg-clip-text text-transparent mb-6 leading-tight"
+              className="text-5xl md:text-7xl font-black bg-gradient-to-r from-gray-900 via-[#006174] to-[#00A9BB] dark:from-white dark:via-[#00A9BB] dark:to-[#A1D302] bg-clip-text text-transparent mb-6 leading-tight"
               variants={itemVariants}
             >
               <motion.span
@@ -138,17 +151,19 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Misión, Visión
+                <span className="dark:hidden">Misión, Visión</span>
+                <span className="hidden dark:inline">Propósito, Visión</span>
               </motion.span>
               <br />
               <motion.span
-                className="text-transparent bg-gradient-to-r from-[#0d617b] to-[#12a9be] bg-clip-text"
+                className="text-transparent bg-gradient-to-r from-[#006174] to-[#00A9BB] bg-clip-text"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                y Principios
+                <span className="dark:hidden">y Principios</span>
+                <span className="hidden dark:inline">y Valores</span>
               </motion.span>
             </motion.h2>
 
@@ -156,8 +171,14 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
               className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
               variants={itemVariants}
             >
-              Los cimientos fundamentales que orientan nuestra labor y expresan nuestro compromiso con la formación de
-              excelencia en {countryName}.
+              <span className="dark:hidden">
+                Los cimientos fundamentales que orientan nuestra labor y expresan nuestro compromiso con la formación de
+                excelencia en {countryName}.
+              </span>
+              <span className="hidden dark:inline">
+                Las bases esenciales que guían nuestro trabajo y reflejan nuestra dedicación hacia la educación superior
+                de calidad en {countryName}.
+              </span>
             </motion.p>
           </motion.div>
 
@@ -172,7 +193,7 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
             {/* Misión */}
             <motion.div className="relative group" variants={cardVariants} whileHover={{ y: -10, rotateY: 5 }}>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#0d617b] to-[#12a9be] rounded-2xl transform rotate-1 group-hover:rotate-2 transition-transform duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[#006174] to-[#00A9BB] rounded-2xl transform rotate-1 group-hover:rotate-2 transition-transform duration-300"
                 initial={{ scale: 0, rotate: -180 }}
                 whileInView={{ scale: 1, rotate: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -187,16 +208,19 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                   viewport={{ once: true }}
                 >
                   <motion.div
-                    className="bg-gradient-to-r from-[#0d617b] to-[#12a9be] p-4 rounded-2xl mr-6 shadow-lg"
+                    className="bg-gradient-to-r from-[#006174] to-[#00A9BB] p-4 rounded-2xl mr-6 shadow-lg"
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   >
                     <Target className="h-8 w-8 text-white" />
                   </motion.div>
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">Nuestra Misión</h3>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <span className="dark:hidden">Nuestra Misión</span>
+                      <span className="hidden dark:inline">Nuestro Propósito</span>
+                    </h3>
                     <motion.div
-                      className="w-20 h-1 bg-gradient-to-r from-[#0d617b] to-[#12a9be] rounded-full mt-2"
+                      className="w-20 h-1 bg-gradient-to-r from-[#006174] to-[#00A9BB] rounded-full mt-2"
                       initial={{ width: 0 }}
                       whileInView={{ width: 80 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
@@ -211,9 +235,16 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  Brindar servicios educativos especializados a organizaciones y profesionales, destacando por la
-                  calidad de nuestros facilitadores, el uso de tecnología avanzada y un equipo comprometido con una
-                  formación de primer nivel.
+                  <span className="dark:hidden">
+                    Brindar servicios educativos especializados a organizaciones y profesionales, destacando por la
+                    calidad de nuestros facilitadores, el uso de tecnología avanzada y un equipo comprometido con una
+                    formación de primer nivel.
+                  </span>
+                  <span className="hidden dark:inline">
+                    Ofrecer soluciones formativas de alta especialización para empresas y expertos, sobresaliendo por la
+                    excelencia de nuestros instructores, la implementación de herramientas tecnológicas innovadoras y un
+                    equipo dedicado a la educación superior.
+                  </span>
                 </motion.p>
               </div>
             </motion.div>
@@ -221,7 +252,7 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
             {/* Visión */}
             <motion.div className="relative group" variants={cardVariants} whileHover={{ y: -10, rotateY: -5 }}>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#12a9be] to-[#b6d900] rounded-2xl transform -rotate-1 group-hover:-rotate-2 transition-transform duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-[#00A9BB] to-[#A1D302] rounded-2xl transform -rotate-1 group-hover:-rotate-2 transition-transform duration-300"
                 initial={{ scale: 0, rotate: 180 }}
                 whileInView={{ scale: 1, rotate: -1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -236,16 +267,19 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                   viewport={{ once: true }}
                 >
                   <motion.div
-                    className="bg-gradient-to-r from-[#12a9be] to-[#b6d900] p-4 rounded-2xl mr-6 shadow-lg"
+                    className="bg-gradient-to-r from-[#00A9BB] to-[#A1D302] p-4 rounded-2xl mr-6 shadow-lg"
                     whileHover={{ rotate: -360, scale: 1.1 }}
                     transition={{ duration: 0.5 }}
                   >
                     <Eye className="h-8 w-8 text-white" />
                   </motion.div>
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">Nuestra Visión</h3>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+                      <span className="dark:hidden">Nuestra Visión</span>
+                      <span className="hidden dark:inline">Nuestra Proyección</span>
+                    </h3>
                     <motion.div
-                      className="w-20 h-1 bg-gradient-to-r from-[#12a9be] to-[#b6d900] rounded-full mt-2"
+                      className="w-20 h-1 bg-gradient-to-r from-[#00A9BB] to-[#A1D302] rounded-full mt-2"
                       initial={{ width: 0 }}
                       whileInView={{ width: 80 }}
                       transition={{ duration: 0.8, delay: 0.8 }}
@@ -260,9 +294,16 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                   transition={{ duration: 0.6, delay: 1 }}
                   viewport={{ once: true }}
                 >
-                  Consolidarnos como una organización líder, innovadora y reconocida a nivel regional, estableciendo
-                  nuevos estándares en capacitación, gestión del talento humano y servicios de consultoría de alta
-                  calidad.
+                  <span className="dark:hidden">
+                    Consolidarnos como una organización líder, innovadora y reconocida a nivel regional, estableciendo
+                    nuevos estándares en capacitación, gestión del talento humano y servicios de consultoría de alta
+                    calidad.
+                  </span>
+                  <span className="hidden dark:inline">
+                    Posicionarnos como una institución pionera, vanguardista y prestigiosa en el ámbito regional,
+                    definiendo paradigmas renovados en formación profesional, desarrollo de capital humano y asesoría
+                    especializada de excelencia.
+                  </span>
                 </motion.p>
               </div>
             </motion.div>
@@ -284,13 +325,15 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Nuestros{" "}
-                <span className="bg-gradient-to-r from-[#0d617b] to-[#12a9be] bg-clip-text text-transparent">
-                  Principios
+                <span className="dark:hidden">Nuestros </span>
+                <span className="hidden dark:inline">Nuestros </span>
+                <span className="bg-gradient-to-r from-[#006174] to-[#00A9BB] bg-clip-text text-transparent">
+                  <span className="dark:hidden">Principios</span>
+                  <span className="hidden dark:inline">Valores</span>
                 </span>
               </motion.h3>
               <motion.div
-                className="w-24 h-1 bg-gradient-to-r from-[#0d617b] to-[#12a9be] rounded-full mx-auto"
+                className="w-24 h-1 bg-gradient-to-r from-[#006174] to-[#00A9BB] rounded-full mx-auto"
                 initial={{ width: 0 }}
                 whileInView={{ width: 96 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -350,7 +393,7 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                       </motion.div>
                       <div className="flex-1">
                         <motion.h4
-                          className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#0d617b] dark:group-hover:text-[#12a9be] transition-colors duration-300"
+                          className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#006174] dark:group-hover:text-[#00A9BB] transition-colors duration-300"
                           initial={{ opacity: 0, y: -10 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
@@ -374,7 +417,8 @@ export function MissionVisionValues({ countryName }: MissionVisionValuesProps) {
                       transition={{ duration: 0.6, delay: 1 + index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      {value.description}
+                      <span className="dark:hidden">{value.description}</span>
+                      <span className="hidden dark:inline">{value.darkDescription}</span>
                     </motion.p>
                   </div>
                 </motion.div>

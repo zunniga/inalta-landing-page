@@ -4,8 +4,10 @@ import React from "react";
 import HeroCarousel from "@/components/sections/inicio/hero-carousel";
 import { FirstSection } from "@/components/sections/inicio/certificate-section";
 import { FeaturedCourses } from "@/components/sections/inicio/featured-courses";
-import { Testimonials } from "@/components/sections/inicio/testimonials";
-import { RectangularInfo } from "@/components/sections/inicio/rectangular-info";
+import Testimonials from "@/components/sections/inicio/testimonials";
+import  CounterNumber  from "@/components/sections/inicio/counter-number";
+import  ContactView  from "@/components/sections/inicio/contact-view";
+// import { RectangularInfo } from "@/components/sections/inicio/rectangular-info";
 import { FeaturedDiplomas } from "@/components/sections/inicio/featured-diplomas";
 import type { HeroSlide, Testimonial } from "@/types";
 import type { CourseData } from "@/types/course";
@@ -25,9 +27,7 @@ interface HomeLayoutProps {
 
 export default function HomeLayout({
   countryCode,
-  countryName,
   featuredCourses,
-  testimonials,
   featuredDiplomas,
 }: HomeLayoutProps) {
   return (
@@ -38,8 +38,8 @@ export default function HomeLayout({
       </section>
 
       {/* Rest of content with proper spacing */}
-      <main className="bg-gradient-to-br from-gray-100 via-gray-100 to-gray-100 dark:from-[#0a0f1c]/90 dark:via-[#0a0f1c]/90 dark:to-[#0a0f1c]/90 pt-16 pb-16 px-4">
-        <div className="max-w-[1200px] mx-auto">
+      <main className="bg-gray-100 dark:bg-[#0F172A] ">
+        <div className=" mx-auto">
           {/* Certificate Section - Nueva sección */}
           <section>
             <FirstSection />
@@ -55,7 +55,7 @@ export default function HomeLayout({
           </section>
 
           <section>
-            <Testimonials testimonials={testimonials} />
+            <Testimonials />
           </section>
           <section>
             <FeaturedCourses
@@ -64,12 +64,11 @@ export default function HomeLayout({
             />
           </section>
           <section>
-            <RectangularInfo
-              countryCode={countryCode}
-              countryName={countryName}
-            />
+            <CounterNumber />
           </section>
-          
+          <section>
+            <ContactView />
+          </section>
         </div>
       </main>
     </>

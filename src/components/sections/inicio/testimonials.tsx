@@ -1,282 +1,398 @@
-"use client";
+"use client"
 
-import { useCallback, useEffect, useState } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react"
+import Image from "next/image"
+import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { testimonials } from "./utils/testimonials"
+import Link from "next/link"
 
-export interface Testimonial {
-  id: string;
-  name: string;
-  role: string;
-  company: string;
-  avatar: string;
-  comment: string;
-  rating: number;
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, staggerChildren: 0.2 } },
 }
 
-interface TestimonialsProps {
-  testimonials: Testimonial[];
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 }
 
-export function Testimonials({ testimonials }: TestimonialsProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "center",
-    skipSnaps: false,
-    duration: 25,
-  });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
+const testimonialVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.9,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.9,
+    transition: { duration: 0.4 },
+  }),
+}
 
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    onSelect();
-    setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
-
-    return () => {
-      emblaApi.off("select", onSelect);
-    };
-  }, [emblaApi, onSelect]);
-
-  const scrollTo = useCallback(
-    (index: number) => emblaApi && emblaApi.scrollTo(index),
-    [emblaApi]
-  );
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
+// Componente reutilizable para testimonios - CORREGIDO: Nombre del componente en PascalCase
+function TestimonialCard({
+  testimonial,
+  index,
+  isDesktop,
+}: {
+  testimonial: {
+    id: string | number
+    name: string
+    role: string
+    quote: string
+    image?: string
+    rating: number
+  }
+  index: number
+  isDesktop: boolean
+}) {
+  const sizes = isDesktop
+    ? {
+        card: "rounded-2xl p-6 xl:p-8",
+        avatar: "w-16 h-16",
+        icon: "w-12 h-12",
+        iconSvg: "w-6 h-6",
+        star: "w-4 h-4",
+        text: "text-lg",
+        quote: "text-sm",
+      }
+    : {
+        card: "rounded-xl p-4 sm:p-6",
+        avatar: "w-12 sm:w-14 h-12 sm:h-14",
+        icon: "w-8 sm:w-10 h-8 sm:h-10",
+        iconSvg: "w-4 sm:w-5 h-4 sm:h-5",
+        star: "w-3 sm:w-4 h-3 sm:h-4",
+        text: "text-sm sm:text-base",
+        quote: "text-xs sm:text-sm",
+      }
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden bg-transparent">
-      {/* Floating elements with new colors */}
+    <motion.div
+      className={`bg-white dark:bg-gray-800 ${sizes.card} shadow-sm dark:shadow-lg relative`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.8 }}
+      whileHover={{ y: -5, transition: { duration: 0.8 } }}
+    >
       <motion.div
-        className="absolute top-20 right-10 w-32 h-32 bg-gradient-to-r from-[#12a9be]/10 to-[#0d617b]/10 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "reverse",
-        }}
-      />
+        className={`absolute ${isDesktop ? "top-6 right-6" : "top-4 right-4"}`}
+        initial={{ scale: 0, rotate: -180 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ delay: 0.3, duration: 0.5, ease: "backOut" }}
+      >
+        <div
+          className={`${sizes.icon} bg-[#006174] dark:bg-[#A1D302] rounded-lg flex items-center justify-center transition-colors duration-300`}
+        >
+          <svg className={`${sizes.iconSvg} text-white dark:text-[#20252b]`} fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
+          </svg>
+        </div>
+      </motion.div>
 
-      <motion.div
-        className="absolute bottom-20 left-10 w-40 h-40 bg-gradient-to-r from-[#b6d900]/10 to-[#12a9be]/10 rounded-full blur-xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          rotate: [360, 180, 0],
-          opacity: [0.1, 0.15, 0.1],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Number.POSITIVE_INFINITY,
-          repeatType: "reverse",
-          delay: 3,
-        }}
-      />
-
-      <div className="container mx-auto relative z-10">
-        <div className="max-w-7xl mx-auto">
-          {/* Header con el nuevo diseño */}
-          <motion.div
-            className="text-center mb-12"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+      <Link
+        className="cursor-pointer"
+        href={"https://www.facebook.com/profile.php?id=61565984064270&sk=reviews"}
+        target="_blank"
+      >
+        <motion.div
+          className={`flex items-center ${isDesktop ? "mb-6" : "mb-4 sm:mb-6"}`}
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+        >
+          <div
+            className={`relative ${sizes.avatar} rounded-full overflow-hidden ${
+              isDesktop ? "mr-4" : "mr-3 sm:mr-4"
+            } flex-shrink-0 ring-2 ring-[#A1D302] dark:ring-[#006174] transition-all duration-300`}
           >
-            <motion.div variants={itemVariants} className="inline-block mb-6">
-              <div className="inline-flex items-center justify-center mb-0">
-                <span className="mx-4 text-white p-2 rounded-2xl font-bold text-sm tracking-[0.2em] uppercase bg-gradient-to-r from-[#12a9be] to-[#12a9be] dark:bg-gradient-to-r dark:from-[#12a9be]/50 dark:to-[#12a9be] shadow-lg transition-transform duration-300 hover:scale-105">
-                  TESTIMONIOS
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.h2
-              variants={itemVariants}
-              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
+            <Image src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} fill className="object-cover" />
+          </div>
+          <div>
+            <h3 className={`font-bold ${sizes.text} text-gray-900 dark:text-white transition-colors duration-300`}>
+              {testimonial.name}
+            </h3>
+            <p
+              className={`text-[#006174] dark:text-[#A1D302] ${sizes.quote} font-medium transition-colors duration-300`}
             >
-              ¡Experiencias que{" "}
-              <span className="relative">
-                <span className="bg-gradient-to-r from-[#12a9be] to-[#0d617b] bg-clip-text text-transparent">inspiran</span>
-                <div className="absolute -bottom-2 left-0 right-0 h-1 bg-[#b6d900] rounded-full"></div>
-              </span>
-              !
-            </motion.h2>
-          </motion.div>
+              {testimonial.role}
+            </p>
+          </div>
+        </motion.div>
+      </Link>
 
-          {/* Carousel Container con nuevo estilo */}
+      <motion.blockquote
+        className={`text-gray-600 dark:text-gray-300 leading-relaxed ${
+          isDesktop ? "mb-6" : "mb-4 sm:mb-6"
+        } ${sizes.quote} transition-colors duration-300`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
+      >
+        {testimonial.quote}
+      </motion.blockquote>
+
+      <motion.div
+        className="flex space-x-1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+      >
+        {[...Array(5)].map((_, i) => (
           <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
+            key={i}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.6 + i * 0.1, duration: 0.3 }}
           >
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex">
-                {testimonials.map((testimonial) => (
-                  <div
-                    key={testimonial.id}
-                    className="flex-[0_0_100%] min-w-0 md:flex-[0_0_90%] lg:flex-[0_0_50%] xl:flex-[0_0_33.333%]"
+            <Star
+              className={`${sizes.star} text-[#A1D302] dark:text-yellow-400 transition-colors duration-300`}
+              fill={i < testimonial.rating ? "currentColor" : "none"}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+// Componente para botones de navegación
+function NavButton({
+  onClick,
+  direction,
+  isDesktop,
+}: {
+  onClick: () => void
+  direction: "prev" | "next"
+  isDesktop: boolean
+}) {
+  const size = isDesktop ? "w-12 h-12" : "w-10 sm:w-12 h-10 sm:h-12"
+  const iconSize = isDesktop ? "w-5 h-5" : "w-4 sm:w-5 h-4 sm:h-5"
+
+  return (
+    <motion.button
+      onClick={onClick}
+      className={`${size} rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center hover:border-[#006174] dark:hover:border-[#A1D302] hover:text-[#006174] dark:hover:text-[#A1D302] transition-all duration-300 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300`}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={`${direction === "prev" ? "Testimonio anterior" : "Siguiente testimonio"}`}
+    >
+      {direction === "prev" ? <ChevronLeft className={iconSize} /> : <ChevronRight className={iconSize} />}
+    </motion.button>
+  )
+}
+
+export default function TestimonialsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [autoplay, setAutoplay] = useState(true)
+  const [direction, setDirection] = useState(0)
+
+  const changeTestimonial = (newIndex: number) => {
+    setDirection(newIndex > currentIndex ? 1 : -1)
+    setCurrentIndex(newIndex)
+  }
+
+  useEffect(() => {
+    if (!autoplay) return
+
+    const interval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % testimonials.length
+      changeTestimonial(nextIndex)
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [autoplay, currentIndex])
+
+  const handleNavigation = (direction: "prev" | "next") => {
+    setAutoplay(false)
+    const newIndex =
+      direction === "prev"
+        ? (currentIndex - 1 + testimonials.length) % testimonials.length
+        : (currentIndex + 1) % testimonials.length
+    changeTestimonial(newIndex)
+    setTimeout(() => setAutoplay(true), 5000)
+  }
+
+  const getVisibleTestimonials = () => {
+    const extended = [...testimonials, ...testimonials]
+    return typeof window !== "undefined" && window.innerWidth < 768
+      ? [extended[currentIndex]]
+      : [extended[currentIndex], extended[currentIndex + 1]]
+  }
+
+  return (
+    <motion.section
+      className="relative z-0"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+    >
+      <div className="bg-gray-100 dark:bg-[#0F172A] relative transition-colors duration-300">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+          <div className="max-w-7xl mx-auto">
+            {/* Mobile Layout */}
+            <div className="lg:hidden">
+              {/* Header */}
+              <motion.div className="text-center mb-8 sm:mb-12" variants={itemVariants}>
+                <div className="flex items-center justify-center mb-4">
+                  <span className="text-[#006174] dark:text-[#A1D302] font-semibold text-xs sm:text-sm tracking-wider uppercase transition-colors duration-300">
+                    TESTIMONIOS
+                  </span>
+                  <div className="ml-3 w-8 sm:w-12 h-0.5 bg-[#006174] dark:bg-[#A1D302] transition-colors duration-300"></div>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white leading-tight mb-4 transition-colors duration-300">
+                  Lo Que Los Estudiantes
+                  <br />
+                  Dicen Sobre Nosotros
+                </h2>
+                <div className="flex items-center justify-center">
+                  <motion.div
+                    className={`w-2 h-2 rounded-full mr-2 transition-colors duration-300 ${
+                      autoplay ? "bg-[#A1D302]" : "bg-gray-400 dark:bg-gray-500"
+                    }`}
+                    animate={{ scale: autoplay ? [1, 1.2, 1] : 1 }}
+                    transition={{
+                      duration: 2,
+                      repeat: autoplay ? Number.POSITIVE_INFINITY : 0,
+                    }}
+                  />
+                  <span className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                    {autoplay ? "Reproducción automática" : "Manual"}
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Contenedor de testimonios mobile */}
+              <motion.div
+                className="relative overflow-hidden h-full"
+                variants={itemVariants}
+                style={{ minHeight: "280px" }}
+              >
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentIndex}
+                    custom={direction}
+                    variants={testimonialVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
                   >
-                    <motion.div
-                      className="bg-[#0d617b]/90 backdrop-blur-sm rounded-2xl p-6 mx-3 h-[380px] flex flex-col shadow-xl hover:shadow-2xl border border-[#12a9be]/20 hover:border-[#12a9be]/40 transition-all duration-300 relative overflow-hidden group"
-                      whileHover={{ y: -4, scale: 1.02 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {/* Glow effect con nuevos colores */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#12a9be]/10 to-[#b6d900]/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {getVisibleTestimonials().map((testimonial, index) => (
+                      <TestimonialCard
+                        key={`${testimonial.id}-${currentIndex}-${index}`}
+                        testimonial={testimonial}
+                        index={index}
+                        isDesktop={false}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
 
-                      {/* Quote Icon Background */}
-                      <div className="absolute top-4 right-4 opacity-10">
-                        <Quote size={60} className="text-[#12a9be]" />
-                      </div>
+              {/* Navegación mobile */}
+              <motion.div className="flex justify-center space-x-4 mt-6" variants={itemVariants}>
+                <NavButton onClick={() => handleNavigation("prev")} direction="prev" isDesktop={false} />
+                <NavButton onClick={() => handleNavigation("next")} direction="next" isDesktop={false} />
+              </motion.div>
 
-                      <div className="relative z-10 flex flex-col h-full">
-                        {/* Rating con estrellas amarillas */}
-                        <div className="flex items-center justify-center mb-4">
-                          <div className="flex items-center gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                size={20}
-                                className={`${
-                                  i < testimonial.rating
-                                    ? "text-[#b6d900] fill-[#b6d900]"
-                                    : "text-gray-500"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Comment optimizado */}
-                        <blockquote className="text-white leading-relaxed flex-grow text-base relative mb-6 text-center">
-                          <div className="absolute -left-2 -top-2 text-[#12a9be] opacity-30">
-                            <Quote size={20} />
-                          </div>
-                          <p className="px-4 font-medium">
-                            &quot;{testimonial.comment}&quot;
-                          </p>
-                        </blockquote>
-
-                        {/* Header con avatar y info */}
-                        <div className="flex items-center justify-center">
-                          <div className="flex-shrink-0 relative mr-4">
-                            <div className="h-12 w-12 relative rounded-full overflow-hidden shadow-lg ring-2 ring-[#12a9be]/50">
-                              <Image
-                                src={testimonial.avatar || "/placeholder.svg"}
-                                alt={testimonial.name}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                            {/* Status indicator */}
-                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#b6d900] rounded-full border-2 border-[#0d617b] shadow-sm"></div>
-                          </div>
-                          <div className="text-center">
-                            <h4 className="font-bold text-lg text-white group-hover:text-[#12a9be] transition-colors">
-                              {testimonial.name}
-                            </h4>
-                            <p className="text-[#12a9be] text-sm font-medium">
-                              {testimonial.role}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
+              {/* Dots indicator */}
+              <motion.div className="flex justify-center space-x-2 mt-6" variants={itemVariants}>
+                {testimonials.map((_, index) => (
+                  <motion.button
+                    key={index}
+                    onClick={() => changeTestimonial(index)}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index === currentIndex ? "bg-[#006174] dark:bg-[#A1D302]" : "bg-gray-300 dark:bg-gray-600"
+                    }`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                    animate={{ scale: index === currentIndex ? 1.2 : 1 }}
+                    aria-label={`Ir al testimonio ${index + 1}`}
+                  />
                 ))}
-              </div>
+              </motion.div>
             </div>
 
-            {/* Navigation Arrows con nuevo estilo */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#0d617b] rounded-full shadow-lg border-2 border-[#12a9be]/30 flex items-center justify-center text-white hover:text-[#12a9be] hover:border-[#12a9be] hover:bg-[#0d617b]/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
-              onClick={scrollPrev}
-              disabled={!canScrollPrev}
-            >
-              <ChevronLeft size={20} />
-            </motion.button>
+            {/* Desktop Layout */}
+            <div className="hidden lg:flex items-start justify-between">
+              {/* Left side - Title and Navigation */}
+              <motion.div className="w-1/3 pr-8 xl:pr-12" variants={itemVariants}>
+                <div className="mb-6">
+                  <div className="flex items-center mb-4">
+                    <span className="text-[#006174] dark:text-[#A1D302] font-semibold text-xs tracking-wider uppercase transition-colors duration-300">
+                      TESTIMONIOS
+                    </span>
+                    <div className="ml-3 w-12 h-0.5 bg-[#006174] dark:bg-[#A1D302] transition-colors duration-300"></div>
+                  </div>
+                  <h2 className="text-3xl xl:text-4xl font-bold text-gray-900 dark:text-white leading-tight transition-colors duration-300">
+                    Lo Que Los Estudiantes
+                    <br />
+                    Dicen Sobre Nosotros
+                  </h2>
+                  <div className="flex items-center mt-2">
+                    <motion.div
+                      className={`w-2 h-2 rounded-full mr-2 transition-colors duration-300 ${
+                        autoplay ? "bg-[#A1D302]" : "bg-gray-400 dark:bg-gray-500"
+                      }`}
+                      animate={{ scale: autoplay ? [1, 1.2, 1] : 1 }}
+                      transition={{
+                        duration: 2,
+                        repeat: autoplay ? Number.POSITIVE_INFINITY : 0,
+                      }}
+                    />
+                    <span className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                      {autoplay ? "Reproducción automática" : "Manual"}
+                    </span>
+                  </div>
+                </div>
 
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#0d617b] rounded-full shadow-lg border-2 border-[#12a9be]/30 flex items-center justify-center text-white hover:text-[#12a9be] hover:border-[#12a9be] hover:bg-[#0d617b]/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed z-10"
-              onClick={scrollNext}
-              disabled={!canScrollNext}
-            >
-              <ChevronRight size={20} />
-            </motion.button>
-          </motion.div>
+                {/* Navigation arrows */}
+                <div className="flex space-x-4 mt-8">
+                  <NavButton onClick={() => handleNavigation("prev")} direction="prev" isDesktop={true} />
+                  <NavButton onClick={() => handleNavigation("next")} direction="next" isDesktop={true} />
+                </div>
+              </motion.div>
 
-          {/* Controls con nuevos colores */}
-          <div className="flex justify-center items-center mt-8 gap-2">
-            {scrollSnaps.map((_, index) => (
-              <motion.button
-                key={index}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-                className={`transition-all duration-300 ${
-                  index === selectedIndex
-                    ? "w-8 h-2 bg-[#12a9be] rounded-full"
-                    : "w-2 h-2 bg-gray-400 hover:bg-[#12a9be]/70 rounded-full"
-                }`}
-                onClick={() => scrollTo(index)}
-                aria-label={`Ir al testimonio ${index + 1}`}
-              />
-            ))}
+              {/* Right side - Testimonials */}
+              <motion.div
+                className="w-2/3 relative overflow-hidden"
+                variants={itemVariants}
+                style={{ minHeight: "320px" }}
+              >
+                <AnimatePresence mode="wait" custom={direction}>
+                  <motion.div
+                    key={currentIndex}
+                    custom={direction}
+                    variants={testimonialVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="grid grid-cols-2 gap-6"
+                  >
+                    {getVisibleTestimonials().map((testimonial, index) => (
+                      <TestimonialCard
+                        key={`${testimonial.id}-${currentIndex}-${index}`}
+                        testimonial={testimonial}
+                        index={index}
+                        isDesktop={true}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </motion.section>
+  )
 }
