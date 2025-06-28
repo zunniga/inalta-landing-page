@@ -38,7 +38,7 @@ export function Footer({ countryCode = "" }: { countryCode?: string }) {
   return (
     <footer className="relative bg-gray-100 dark:bg-[#0F172A] text-gray-900 dark:text-white overflow-hidden">
       <div className="absolute inset-0 opacity-20">
-        <Image src="/es/bg/sayan7.png" alt="" fill className="object-cover" priority />
+        <Image src="/es/bg/bg-foot.png" alt="" fill className="object-cover" priority />
       </div>
       {/* Elementos decorativos de fondo */}
       <div className="absolute inset-0 opacity-10">

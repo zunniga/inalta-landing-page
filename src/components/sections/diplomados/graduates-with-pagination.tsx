@@ -123,7 +123,7 @@ export function GraduatesWithPagination({
     <section className=" relative overflow-hidden">
       <div className="container mx-auto relative z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full h-[400px] mb-12  overflow-hidden rounded-2xl">
+          <div className="relative w-full h-[400px] mt-10 mb-12  overflow-hidden rounded-2xl">
             <Image
               src="/es/graduate/graduate-bg.jpg"
               alt="Graduados"

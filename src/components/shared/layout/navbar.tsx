@@ -129,7 +129,7 @@ export function Navbar({ countryCode = "" }: { countryCode?: string }) {
                   href="https://www.unp.auladm.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden lg:flex items-center gap-2 px-6 py-2 rounded-sm text-sm font-bold transition-all hover:scale-105 transform bg-transparent border border-zinc-300/70 dark:border-zinc-700 text-white shadow-lg hover:shadow-xl border-1 hover:border-white/30"
+                  className="hidden lg:flex items-center gap-2 px-6 py-2 rounded-xl text-sm font-bold transition-all hover:scale-105 transform bg-transparent border border-zinc-300/70 dark:border-zinc-700 text-white shadow-lg hover:shadow-xl hover:border-white/30"
                 >
                   <GraduationCap size={16} />
                   AULA VIRTUAL

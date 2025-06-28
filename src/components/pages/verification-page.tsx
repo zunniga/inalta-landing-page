@@ -431,7 +431,7 @@ export function VerificationPage() {
     <section className="relative bg-gradient-to-br from-gray-100 via-gray-100 to-gray-100 dark:from-[#0a0f1c] dark:via-[#0a0f1c] dark:to-[#0a0f1c] min-h-[calc(100vh)] flex flex-col justify-center items-center transition-colors duration-300 py-32 md:py-30">
       <div className="absolute inset-0 opacity-40 ">
         <Image
-          src="/es/bg/cyan3.png"
+          src="/es/bg/linee.png"
           alt=""
           fill
           className="object-cover"
